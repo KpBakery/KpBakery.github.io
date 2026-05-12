@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KP Bakery — Catálogo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --passion:   #FAD06F;
+    --strawberry:#F78180;
+    --butter:    #F8CF8F;
+    --pistachio: #C8BA71;
+    --cherry:    #D88180;
+    --chocolate: #9FB064;
+    --mahogany:  #805841;
+    --pearl:     #DCF1F3;
+    --daffodil:  #FFFCDD;
+    --gossamer:  #FFD8D8;
+    --crimson:   #F5A2A2;
+    --cream:     #FDF6ED;
+    --dark:      #3a2518;
+    --mid:       #6b4226;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--dark);
+    min-height: 100vh;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--mahogany);
+    padding: 56px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 20%, #a0603580 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, #fad06f30 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--passion);
+    border: 1px solid var(--passion);
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    opacity: .85;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 9vw, 62px);
+    font-weight: 700;
+    color: var(--daffodil);
+    line-height: 1.05;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--passion);
+  }
+  .hero p {
+    font-size: 14px;
+    color: #e8d5c0;
+    max-width: 300px;
+    margin: 0 auto 24px;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+  .hero-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 12px;
+    color: #e8d5c0;
+  }
+  .hero-note span { color: var(--passion); font-weight: 500; }
+
+  /* ── SECTION TITLE ── */
+  .section-header {
+    padding: 36px 20px 4px;
+    text-align: center;
+  }
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--mahogany);
+    letter-spacing: -.3px;
+  }
+  .section-header p {
+    font-size: 12px;
+    color: var(--mid);
+    margin-top: 4px;
+    font-weight: 300;
+    letter-spacing: .5px;
+  }
+  .divider {
+    width: 40px; height: 2px;
+    background: var(--passion);
+    margin: 10px auto 0;
+    border-radius: 2px;
+  }
+
+  /* ── GRID ── */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 20px 16px 8px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(58,37,24,.07);
+    transition: transform .2s, box-shadow .2s;
+    animation: fadeUp .5s ease both;
+  }
+  .card:active { transform: scale(.98); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .card-swatch {
+    height: 8px;
+  }
+
+  .card-body {
+    padding: 18px 18px 14px;
+  }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .card-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.15;
+    letter-spacing: -.3px;
+  }
+
+  .card-emoji {
+    font-size: 26px;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .card-desc {
+    font-size: 12.5px;
+    color: #7a5c42;
+    line-height: 1.55;
+    font-weight: 300;
+    margin-bottom: 14px;
+  }
+
+  /* SIZES */
+  .sizes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .size-box {
+    border-radius: 12px;
+    padding: 11px 13px;
+    border: 1.5px solid #f0e6da;
+  }
+
+  .size-box.highlight {
+    border-color: var(--mahogany);
+    background: #fdf2e7;
+  }
+
+  .size-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 3px;
+  }
+
+  .size-portions {
+    font-size: 11px;
+    color: #9e7a5a;
+    font-weight: 300;
+    margin-bottom: 5px;
+  }
+
+  .size-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--mahogany);
+    letter-spacing: -.5px;
+  }
+  .size-price sup {
+    font-size: 11px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    vertical-align: super;
+    letter-spacing: 0;
+  }
+
+  /* BADGE */
+  .badge {
+    display: inline-block;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+  }
+  .badge.new     { background: var(--pistachio); color: #3d3800; }
+  .badge.popular { background: var(--gossamer);  color: #8b2020; }
+  .badge.star    { background: var(--passion);   color: #5c3500; }
+
+  /* ── NOTES ── */
+  .notes-section {
+    margin: 8px 16px 0;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .note-card {
+    background: var(--mahogany);
+    border-radius: 14px;
+    padding: 18px 20px;
+    color: #f5e8d8;
+  }
+  .note-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    color: var(--passion);
+    margin-bottom: 10px;
+  }
+  .note-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .note-card ul li {
+    font-size: 12px;
+    font-weight: 300;
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.5;
+    color: #e8d5c0;
+  }
+  .note-card ul li::before {
+    content: '·';
+    position: absolute;
+    left: 4px;
+    color: var(--passion);
+    font-size: 16px;
+    top: -1px;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    padding: 32px 20px 40px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--mahogany);
+    margin-bottom: 8px;
+  }
+  .footer p {
+    font-size: 12px;
+    color: var(--mid);
+    font-weight: 300;
+    line-height: 1.6;
+    max-width: 260px;
+    margin: 0 auto 18px;
+  }
+  .cta-btn {
+    display: inline-block;
+    background: var(--mahogany);
+    color: var(--daffodil);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: .5px;
+    padding: 13px 28px;
+    border-radius: 40px;
+    text-decoration: none;
+    transition: background .2s, transform .15s;
+  }
+  .cta-btn:active { transform: scale(.97); background: var(--mid); }
+  .footer-note {
+    font-size: 11px;
+    color: #b08060;
+    margin-top: 14px;
+    font-weight: 300;
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Postres artesanales · Medellín</div>
+  <h1>KP<br><em>Bakery</em></h1>
+  <p>Tortas hechas a mano, con ingredientes reales y mucho amor.</p>
+  <div class="hero-note">
+    <span>✦</span> Pedidos por encargo · Reserva con anticipación
+  </div>
+</div>
+
+<!-- TORTAS CLÁSICAS -->
+<div class="section-header">
+  <h2>Nuestras Tortas</h2>
+  <p>Todos los pedidos son por encargo</p>
+  <div class="divider"></div>
+</div>
+
+<div class="grid">
+
+  <!-- Banana Split -->
+  <div class="card" style="animation-delay:.05s">
+    <div class="card-swatch" style="background: linear-gradient(90deg,#FAD06F,#F8CF8F)"></div>
+    <div class="card-body">
+      <div class="badge popular">Más pedida</div>
+      <div class="card-top">
+        <div class="card-name">Banana Split</div>
+        <div class="card-emoji">🍌</div>
+      </div>
+      <p class="card-desc">Bizcocho húmedo de banano con chips de chocolate y almendras. Sencilla, casera y deliciosa.</p>
+      <div class="sizes">
+        <div class="size-box">
+          <div class="size-label">Grande</div>
+          <div class="size-portions">10 porciones</div>
+          <div class="size-price"><sup>$</sup>25.000</div>
+        </div>
+        <div class="size-box highlight">
+          <div class="size-label">Extra Grande</div>
+          <div class="size-portions">15 porciones</div>
+          <div class="size-price"><sup>$</sup>36.000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nube de Milo -->
+  <div class="card" style="animation-delay:.1s">
+    <div class="card-swatch" style="background: linear-gradient(90deg,#C8BA71,#9FB064)"></div>
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Nube de Milo</div>
+        <div class="card-emoji">☁️</div>
+      </div>
+      <p class="card-desc">Bizcocho suave de vainilla con relleno y cobertura de cremoso de Milo. Como la infancia.</p>
+      <div class="sizes">
+        <div class="size-box">
+          <div class="size-label">Pequeña</div>
+          <div class="size-portions">5–6 porciones</div>
+          <div class="size-price"><sup>$</sup>30.000</div>
+        </div>
+        <div class="size-box highlight">
+          <div class="size-label">Grande</div>
+          <div class="size-portions">12–14 porciones</div>
+          <div class="size-price"><sup>$</sup>57.000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- La Matilda -->
+  <div class="card" style="animation-delay:.15s">
+    <div class="card-swatch" style="background: linear-gradient(90deg,#805841,#5c3a22)"></div>
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">La Matilda</div>
+        <div class="card-emoji">🍫</div>
+      </div>
+      <p class="card-desc">Bizcocho de chocolate intenso bañado en ganache artesanal de dos chocolates. Para los que van en serio con el chocolate.</p>
+      <div class="sizes">
+        <div class="size-box">
+          <div class="size-label">Pequeña</div>
+          <div class="size-portions">5–6 porciones</div>
+          <div class="size-price"><sup>$</sup>38.000</div>
+        </div>
+        <div class="size-box highlight">
+          <div class="size-label">Grande</div>
+          <div class="size-portions">12–14 porciones</div>
+          <div class="size-price"><sup>$</sup>67.000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- La Matilda Roja -->
+  <div class="card" style="animation-delay:.2s">
+    <div class="card-swatch" style="background: linear-gradient(90deg,#D88180,#F5A2A2)"></div>
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">La Matilda Roja</div>
+        <div class="card-emoji">🍓</div>
+      </div>
+      <p class="card-desc">La Matilda con fresas frescas encima. Chocolate intenso y fruta natural. El contraste que te hace pedir otro pedazo.</p>
+      <div class="sizes">
+        <div class="size-box">
+          <div class="size-label">Pequeña</div>
+          <div class="size-portions">5–6 porciones</div>
+          <div class="size-price"><sup>$</sup>43.000</div>
+        </div>
+        <div class="size-box highlight">
+          <div class="size-label">Grande</div>
+          <div class="size-portions">12–14 porciones</div>
+          <div class="size-price"><sup>$</sup>73.000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cielo Rojo -->
+  <div class="card" style="animation-delay:.25s">
+    <div class="card-swatch" style="background: linear-gradient(90deg,#F78180,#FFD8D8)"></div>
+    <div class="card-body">
+      <div class="badge star">⭐ Favorita de JM</div>
+      <div class="card-top">
+        <div class="card-name">Cielo Rojo</div>
+        <div class="card-emoji">🍒</div>
+      </div>
+      <p class="card-desc">Vainilla con frutos rojos, frosting de queso crema y crema de chocolate blanco con limón. Fresca, colorida y elegante.</p>
+      <div class="sizes">
+        <div class="size-box">
+          <div class="size-label">Pequeña</div>
+          <div class="size-portions">5–6 porciones</div>
+          <div class="size-price"><sup>$</sup>46.000</div>
+        </div>
+        <div class="size-box highlight">
+          <div class="size-label">Grande</div>
+          <div class="size-portions">12–14 porciones</div>
+          <div class="size-price"><sup>$</sup>85.000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cielo Azul -->
+  <div class="card" style="animation-delay:.25s">
+    <div class="card-swatch" style="background: linear-gradient(90deg,#F78180,#FFD8D8)"></div>
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Cielo Azul</div>
+        <div class="card-emoji">🍋🫐</div>
+      </div>
+      <p class="card-desc">Vainilla con Crema de limón, mermelada de arándanos y frosting de queso crema. Fresca, colorida y elegante.</p>
+      <div class="sizes">
+        <div class="size-box">
+          <div class="size-label">Pequeña</div>
+          <div class="size-portions">5–6 porciones</div>
+          <div class="size-price"><sup>$</sup>46.000</div>
+        </div>
+        <div class="size-box highlight">
+          <div class="size-label">Grande</div>
+          <div class="size-portions">12–14 porciones</div>
+          <div class="size-price"><sup>$</sup>65.000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- La Imposible -->
+  <div class="card" style="animation-delay:.3s">
+    <div class="card-swatch" style="background: linear-gradient(90deg,#9FB064,#C8BA71)"></div>
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">La Imposible</div>
+        <div class="card-emoji">🍮</div>
+      </div>
+      <p class="card-desc">Dos postres en uno: bizcocho de chocolate y flan artesanal. El clásico pastel imposible hecho a mano.</p>
+      <div class="sizes">
+        <div class="size-box">
+          <div class="size-label">Pequeña</div>
+          <div class="size-portions">5–6 porciones</div>
+          <div class="size-price"><sup>$</sup>35.000</div>
+        </div>
+        <div class="size-box highlight">
+          <div class="size-label">Grande</div>
+          <div class="size-portions">12–14 porciones</div>
+          <div class="size-price"><sup>$</sup>65.000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dulce Trampa -->
+  <div class="card" style="animation-delay:.35s">
+    <div class="card-swatch" style="background: linear-gradient(90deg,#F8CF8F,#FAD06F)"></div>
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Dulce Trampa</div>
+        <div class="card-emoji">🍯</div>
+      </div>
+      <p class="card-desc">Bizcocho de chocolate con cobertura de chocolate suave y corazón de arequipe. Así se ve una trampa deliciosa.</p>
+      <div class="sizes">
+        <div class="size-box">
+          <div class="size-label">Pequeña</div>
+          <div class="size-portions">5–6 porciones</div>
+          <div class="size-price"><sup>$</sup>38.000</div>
+        </div>
+        <div class="size-box highlight">
+          <div class="size-label">Grande</div>
+          <div class="size-portions">12–14 porciones</div>
+          <div class="size-price"><sup>$</sup>60.000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dulce Amargo -->
+  <div class="card" style="animation-delay:.4s">
+    <div class="card-swatch" style="background: linear-gradient(90deg,#805841,#DCF1F3)"></div>
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Dulce Amargo</div>
+        <div class="card-emoji">🧂</div>
+      </div>
+      <p class="card-desc">Chocolate intenso con caramelo salado artesanal. El contraste perfecto entre lo dulce y lo inesperado.</p>
+      <div class="sizes">
+        <div class="size-box">
+          <div class="size-label">Pequeña</div>
+          <div class="size-portions">5–6 porciones</div>
+          <div class="size-price"><sup>$</sup>40.000</div>
+        </div>
+        <div class="size-box highlight">
+          <div class="size-label">Grande</div>
+          <div class="size-portions">12–14 porciones</div>
+          <div class="size-price"><sup>$</sup>85.500</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blanco y Negro -->
+  <div class="card" style="animation-delay:.45s">
+    <div class="card-swatch" style="background: linear-gradient(90deg,#FFFCDD,#805841)"></div>
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-name">Blanco y Negro</div>
+        <div class="card-emoji">🤍</div>
+      </div>
+      <p class="card-desc">Bizcocho esponjoso de vainilla con ganache de chocolate oscuro. El clásico de KP que nunca falla.</p>
+      <div class="sizes">
+        <div class="size-box">
+          <div class="size-label">Pequeña</div>
+          <div class="size-portions">5–6 porciones</div>
+          <div class="size-price"><sup>$</sup>35.000</div>
+        </div>
+        <div class="size-box highlight">
+          <div class="size-label">Grande</div>
+          <div class="size-portions">12–14 porciones</div>
+          <div class="size-price"><sup>$</sup>55.000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- La Paisa -->
+  <div class="card" style="animation-delay:.55s">
+    <div class="card-swatch" style="background: linear-gradient(90deg,#9FB064,#805841)"></div>
+    <div class="card-body">
+      <div class="badge new">Nuevo sabor</div>
+      <div class="card-top">
+        <div class="card-name">La Paisa</div>
+        <div class="card-emoji">☕</div>
+      </div>
+      <p class="card-desc">Bizcocho de café colombiano con relleno de arequipe y frosting de café. 100% identidad medellinense.</p>
+      <div class="sizes">
+        <div class="size-box">
+          <div class="size-label">Pequeña</div>
+          <div class="size-portions">5–6 porciones</div>
+          <div class="size-price"><sup>$</sup>37.000</div>
+        </div>
+        <div class="size-box highlight">
+          <div class="size-label">Grande</div>
+          <div class="size-portions">12–14 porciones</div>
+          <div class="size-price"><sup>$</sup>58.000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- La Tierra -->
+  <div class="card" style="animation-delay:.6s">
+    <div class="card-swatch" style="background: linear-gradient(90deg,#F8CF8F,#C8BA71)"></div>
+    <div class="card-body">
+      <div class="badge new">Nuevo sabor</div>
+      <div class="card-top">
+        <div class="card-name">La Tierra</div>
+        <div class="card-emoji">🥕</div>
+      </div>
+      <p class="card-desc">Bizcocho húmedo de zanahoria con frosting de queso crema y ralladura de naranja. Natural, suave y diferente.</p>
+      <div class="sizes">
+        <div class="size-box">
+          <div class="size-label">Pequeña</div>
+          <div class="size-portions">5–6 porciones</div>
+          <div class="size-price"><sup>$</sup>40.000</div>
+        </div>
+        <div class="size-box highlight">
+          <div class="size-label">Grande</div>
+          <div class="size-portions">12–14 porciones</div>
+          <div class="size-price"><sup>$</sup>65.000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /grid tortas clásicas -->
+
+
+<!-- SABORES NUEVOS -->
+<div class="section-header" style="margin-top:16px">
+  <h2>Sabores Especiales</h2>
+  <p>Próximamente disponibles · Pedidos con anticipación</p>
+  <div class="divider"></div>
+</div>
+
+<div class="grid">
+
+  <!-- La Tropical -->
+  <div class="card" style="animation-delay:.5s">
+    <div class="card-swatch" style="background: linear-gradient(90deg,#FAD06F,#9FB064)"></div>
+    <div class="card-body">
+      <div class="badge new">Nuevo sabor</div>
+      <div class="card-top">
+        <div class="card-name">La Tropical</div>
+        <div class="card-emoji">🥥</div>
+      </div>
+      <p class="card-desc">Bizcocho de vainilla con crema de maracuyá y coco rallado. Fresca, diferente y con sabor a verano.</p>
+      <div class="sizes">
+        <div class="size-box">
+          <div class="size-label">Pequeña</div>
+          <div class="size-portions">5–6 porciones</div>
+          <div class="size-price"><sup>$</sup>43.000</div>
+        </div>
+        <div class="size-box highlight">
+          <div class="size-label">Grande</div>
+          <div class="size-portions">12–14 porciones</div>
+          <div class="size-price"><sup>$</sup>75.500</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /grid nuevos -->
+
+<!-- NOTAS -->
+<div class="notes-section" style="margin-top:20px; padding: 0 16px;">
+  <div class="note-card">
+    <h3>Antes de pedir, ten en cuenta</h3>
+    <ul>
+      <li>Todos los pedidos son por encargo. Se necesita mínimo 48 horas de anticipación.</li>
+      <li>¿Quieres personalizar tu torta? Puedes elegir bizcocho, relleno y cobertura por separado.</li>
+      <li>Para eventos y fechas especiales, reserva con más tiempo.</li>
+      <li>Entrega disponible en Medellín. Consulta disponibilidad por WhatsApp.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-logo">KP Bakery</div>
+  <p>Postres artesanales hechos con ingredientes reales y mucho amor desde Medellín.</p>
+  <a class="cta-btn" href="https://wa.me/573015142751" target="_blank">💬 Pedir por WhatsApp</a>
+  <p class="footer-note">Escríbenos el nombre de la torta y la fecha que necesitas 🎂</p>
+</div>
+
+</body>
+</html>
